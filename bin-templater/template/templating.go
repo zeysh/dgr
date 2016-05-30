@@ -3,7 +3,6 @@ package template
 import (
 	"bufio"
 	"encoding/json"
-	"github.com/leekchan/gtf"
 	"io"
 	"os"
 	"path"
@@ -11,6 +10,8 @@ import (
 	"strings"
 	txttmpl "text/template"
 	"time"
+
+	"github.com/leekchan/gtf"
 )
 
 type Templating struct {
@@ -160,6 +161,14 @@ func IsArray(data interface{}) bool {
 	return false
 }
 
+func IsNil(data interface{}) bool {
+	dataType := reflect.TypeOf(data)
+	if dataType == nil {
+		return true
+	}
+	return false
+}
+
 func IsString(data interface{}) bool {
 	dataType := reflect.TypeOf(data)
 	if dataType == nil {
@@ -214,6 +223,7 @@ func init() {
 	TemplateFunctions["isArray"] = IsArray
 	TemplateFunctions["isKind"] = IsKind
 	TemplateFunctions["isString"] = IsString
+	TemplateFunctions["isNil"] = IsNil
 	TemplateFunctions["add"] = add
 	TemplateFunctions["mul"] = mul
 	TemplateFunctions["div"] = div
